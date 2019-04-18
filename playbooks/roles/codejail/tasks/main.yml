@@ -7,17 +7,17 @@
   with_items: '{{ codejail_debian_packages }}'
 - name: Create group for sandbox user
   group:
-    name: '{{ sandbox_group }}'
+    name: '{{ codejail_sandbox_group }}'
     state: present
     system: yes
 - name: Create sandbox user
   user:
-    name: '{{ sandbox_user }}'
-    group: '{{ sandbox_group }}'
+    name: '{{ codejail_sandbox_user }}'
+    group: '{{ codejail_sandbox_group }}'
     state: present
 - name: Create sandboxed virtual environments for every Python installation
-  shell: 'virtualenv {{ sandbox_env }}-{{ item }}'
-  with_items: "{{ python_versions }}"
+  shell: 'virtualenv {{ codejail_sandbox_env }}-{{ item }}'
+  with_items: "{{ codejail_python_versions }}"
 - name: Template sudoers file
   template:
     src:  "sudoers-template"
@@ -25,9 +25,9 @@
 - name: Create AppArmor profiles for each Python installation
   template:
     src: "apparmor-template"
-    dest: '/etc/apparmor.d/home.{{ sandbox_user }}.{{ sandbox_name_base }}-{{ item }}.bin.python'
-  with_items: "{{ python_versions }}"
+    dest: '/etc/apparmor.d/home.{{ codejail_sandbox_user }}.{{ codejail_sandbox_name_base }}-{{ item }}.bin.python'
+  with_items: "{{ codejail_python_versions }}"
 - name: Parse AppArmor profiles
-  shell: 'apparmor_parser /etc/apparmor.d/home.{{ sandbox_user }}.{{ sandbox_name_base }}-{{ item }}.bin.python'
+  shell: 'apparmor_parser /etc/apparmor.d/home.{{ codejail_sandbox_user }}.{{ codejail_sandbox_name_base }}-{{ item }}.bin.python'
   become: true
-  with_items: "{{ python_versions }}"
+  with_items: "{{ codejail_python_versions }}"
