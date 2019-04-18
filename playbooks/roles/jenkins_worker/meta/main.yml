@@ -1,7 +1,8 @@
 ---
 dependencies:
   - common
-  - jscover
+  - role: jscover
+    when: platform_worker is defined
   - role: oraclejdk
 
   # dependencies for edx-app jenkins worker:
@@ -44,6 +45,7 @@ dependencies:
   - role: loadtest_driver
     when: loadtest_driver_worker is defined
 
+  # OS level dependencies/configuration for runnning multiple codejails
   - role: codejail
     when: codejail_worker is defined
     codejail_sandbox_caller: 'jenkins'
