@@ -17,27 +17,8 @@
     update_cache: yes
   with_items: '{{ jenkins_worker_python_versions }}'
 
-# Install newer versions of python for testing, but do not set them
-# as the default version
-- name: Install python development packages
-  apt:
-    name: '{{ item }}-dev'
-    state: present
-    update_cache: yes
-  with_items: '{{ jenkins_worker_python_versions }}'
-
 # Requests library is required for the github status script.
 - name: Install requests Python library
   pip:
     name: requests
     state: present
-
-# tox is needed for running codejail tests. Since this is the one requirement
-# needed in order to manage the virtual environments used in this testing,
-# specify it here, so that jobs do not need to `sudo pip install`
-- name: Install tox Python library for codejail testing
-  pip:
-    name: tox
-    version: 3.9.0
-    state: present
-  when: codejail_worker is defined

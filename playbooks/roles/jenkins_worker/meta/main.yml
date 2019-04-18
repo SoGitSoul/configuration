@@ -44,9 +44,3 @@ dependencies:
   # dependencies for loadtest driver worker
   - role: loadtest_driver
     when: loadtest_driver_worker is defined
-
-  # OS level dependencies/configuration for runnning multiple codejails
-  - role: codejail
-    when: codejail_worker is defined
-    codejail_sandbox_caller: 'jenkins'
-    codejail_python_versions: '{{ jenkins_worker_python_versions }}'
