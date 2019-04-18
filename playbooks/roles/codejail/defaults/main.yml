@@ -7,5 +7,5 @@ codejail_python_versions:
 codejail_sandbox_user: 'sandbox'
 codejail_sandbox_group: 'sandbox'
 codejail_sandbox_name_base: 'codejail_sandbox'
-codejail_sandbox_env: '/home/{{ sandbox_user }}/{{ sandbox_name_base }}'
+codejail_sandbox_env: '/home/{{ codejail_sandbox_user }}/{{ codejail_sandbox_name_base }}'
 codejail_sandbox_caller: 'ubuntu'
