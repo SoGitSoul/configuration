@@ -2,8 +2,8 @@
 codejail_debian_packages:
   - apparmor-utils
 codejail_python_versions:
-  - 2.7
-  - 3.6
+  - python2.7
+  - python3.6
 codejail_sandbox_user: 'sandbox'
 codejail_sandbox_group: 'sandbox'
 codejail_sandbox_name_base: 'codejail_sandbox'
