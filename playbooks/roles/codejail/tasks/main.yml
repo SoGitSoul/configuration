@@ -16,7 +16,7 @@
     group: '{{ codejail_sandbox_group }}'
     state: present
 - name: Create sandboxed virtual environments for every Python installation
-  shell: 'virtualenv {{ codejail_sandbox_env }}-{{ item }}'
+  shell: 'virtualenv -p {{ item }} {{ codejail_sandbox_env }}-{{ item }}'
   with_items: "{{ codejail_python_versions }}"
 - name: Template sudoers file
   template:
